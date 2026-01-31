@@ -143,7 +143,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAF3E1', // Light Cream
+    backgroundColor: '#0F172A', // Dark Slate
     paddingTop: 60,
   },
   header: {
@@ -155,21 +155,20 @@ const styles = StyleSheet.create({
   },
   appTitle: {
     fontFamily: 'InstrumentSerif_400Regular',
-    color: '#222222', // Dark Gray
+    color: 'white',
     fontSize: 42,
   },
   addButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#222222', // Dark contrast
+    backgroundColor: '#FF6D1F', // Orange Accent
     alignItems: 'center',
     justifyContent: 'center',
-    // Removed border for cleaner look, or keep subtle
-    shadowColor: '#222222',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowColor: '#FF6D1F',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
     elevation: 4,
   },
   scrollContent: {
@@ -177,23 +176,25 @@ const styles = StyleSheet.create({
   },
   scanParams: {
     marginHorizontal: 24,
-    backgroundColor: '#FF6D1F', // Bright Orange
+    backgroundColor: '#1E293B', // Dark Slate (Chill)
     borderRadius: 20,
     padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 32,
-    shadowColor: '#FF6D1F',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 109, 31, 0.5)', // Subtle Orange Border
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   scanIconBg: {
     width: 48,
     height: 48,
     borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 109, 31, 0.15)', // Subtle Orange Tint
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
@@ -202,12 +203,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scanTitle: {
-    color: 'white',
+    color: '#FF6D1F', // Orange Text
     fontSize: 18,
     fontWeight: '600',
   },
   scanSubtitle: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: '#94A3B8', // Muted Slate
     fontSize: 14,
   },
   sectionHeader: {
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    color: '#222222',
+    color: 'white',
     fontSize: 20,
     fontWeight: '700',
   },
@@ -230,23 +231,22 @@ const styles = StyleSheet.create({
     padding: 24,
     marginRight: 16,
     justifyContent: 'space-between',
-    shadowColor: '#222222',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08, // Softer shadow
-    shadowRadius: 12,
-    elevation: 4,
-    // Removed border
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
   },
   addCard: {
-    backgroundColor: '#F5E7C6',
+    backgroundColor: '#1E293B',
     borderWidth: 2,
-    borderColor: '#E2D5B5', // Softer border for dashed area
+    borderColor: '#334155',
     borderStyle: 'dashed',
     alignItems: 'center',
     justifyContent: 'center',
   },
   addCardText: {
-    color: '#666666',
+    color: '#64748B',
     marginTop: 8,
     fontWeight: '600',
   },
@@ -259,15 +259,14 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: '#FAF3E1',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    // Removed border
   },
   cardLastVisit: {
-    color: '#666666',
+    color: 'rgba(255,255,255,0.8)',
     fontSize: 12,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -278,37 +277,37 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   merchantName: {
-    color: '#222222',
+    color: 'white',
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
   },
   tokenCount: {
-    color: '#222222',
+    color: 'white',
     fontSize: 32,
     fontWeight: '800',
   },
   tokenLabel: {
     fontSize: 14,
     fontWeight: '600',
-    opacity: 0.6,
+    opacity: 0.8,
   },
   cardFooter: {
     marginTop: 12,
   },
   progressBarBg: {
     height: 6,
-    backgroundColor: 'rgba(34,34,34,0.05)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 3,
     marginBottom: 2,
   },
   progressBarFill: {
     height: '100%',
-    backgroundColor: '#222222',
+    backgroundColor: 'white',
     borderRadius: 3,
   },
   progressText: {
-    color: '#666666',
+    color: 'rgba(255,255,255,0.9)',
     fontSize: 12,
     fontWeight: '500',
   },
@@ -320,13 +319,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDE4CB', // Very soft divider
+    borderBottomColor: '#1E293B',
   },
   activityIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#F5E7C6',
+    backgroundColor: '#1E293B',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -335,16 +334,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   activityTitle: {
-    color: '#222222',
+    color: 'white',
     fontSize: 16,
     fontWeight: '500',
   },
   activityMerchant: {
-    color: '#666',
+    color: '#64748B',
     fontSize: 14,
   },
   activityTime: {
-    color: '#999',
+    color: '#475569',
     fontSize: 12,
   },
 });

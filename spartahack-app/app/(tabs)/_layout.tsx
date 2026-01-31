@@ -8,12 +8,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#FF6D1F', // Bright Orange
-        tabBarInactiveTintColor: '#666666', // Dark Grey Muted
+        tabBarActiveTintColor: '#FF6D1F', // Orange Accent
+        tabBarInactiveTintColor: '#94A3B8', // Slate 400
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#FAF3E1', // Cream BG
-          borderTopColor: '#222222', // Dark Border
+          backgroundColor: '#1E293B', // Slate 800
+          borderTopColor: '#334155',
           height: Platform.OS === 'ios' ? 88 : 60,
           paddingBottom: Platform.OS === 'ios' ? 28 : 10,
           paddingTop: 10,

@@ -94,7 +94,7 @@ export default function MerchantDetailScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FAF3E1', // Cream BG
+        backgroundColor: '#0F172A', // Dark Slate
         paddingTop: 60,
     },
     header: {
@@ -105,15 +105,14 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     headerTitle: {
-        color: '#222222',
+        color: 'white',
         fontSize: 18,
         fontWeight: '600',
     },
     backButton: {
         padding: 8,
-        backgroundColor: '#F5E7C6',
+        backgroundColor: 'rgba(255,255,255,0.1)',
         borderRadius: 12,
-        // Removed border
     },
     scrollContent: {
         paddingBottom: 40,
@@ -129,35 +128,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 16,
-        // Removed border
-        shadowColor: '#222222',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.1, // Softer shadow
+        shadowColor: '#FF6D1F', // Orange Glow
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.4,
         shadowRadius: 12,
         elevation: 8,
     },
     merchantName: {
         fontFamily: 'InstrumentSerif_400Regular',
-        color: '#222222',
+        color: 'white',
         fontSize: 32,
         textAlign: 'center',
     },
     location: {
-        color: '#666666',
+        color: '#94A3B8',
         fontSize: 14,
         marginTop: 4,
     },
     progressCard: {
-        backgroundColor: '#F5E7C6',
+        backgroundColor: '#1E293B',
         marginHorizontal: 24,
         borderRadius: 24,
         padding: 24,
         marginBottom: 32,
-        // Removed border
-        shadowColor: '#222222',
+        borderWidth: 1,
+        borderColor: '#334155',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05, // Very soft shadow
-        shadowRadius: 12,
+        shadowOpacity: 0.2, // Subtle dark shadow
+        shadowRadius: 10,
         elevation: 4,
     },
     progressHeader: {
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     progressLabel: {
-        color: '#222222',
+        color: 'white',
         fontSize: 16,
         fontWeight: '600',
     },
@@ -177,12 +176,12 @@ const styles = StyleSheet.create({
     },
     totalTokens: {
         fontSize: 16,
-        color: '#666666',
+        color: '#64748B',
         fontWeight: '500',
     },
     progressBarBg: {
         height: 12,
-        backgroundColor: 'rgba(34,34,34,0.05)',
+        backgroundColor: '#334155',
         borderRadius: 6,
         marginBottom: 12,
         overflow: 'hidden',
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     progressFooter: {
-        color: '#666666',
+        color: '#94A3B8',
         fontSize: 14,
     },
     sectionHeader: {
@@ -200,24 +199,23 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     sectionTitle: {
-        color: '#222222',
+        color: 'white',
         fontSize: 20,
         fontWeight: '700',
         fontFamily: 'InstrumentSerif_400Regular',
     },
     historyList: {
         marginHorizontal: 24,
-        backgroundColor: '#F5E7C6',
+        backgroundColor: '#1E293B',
         borderRadius: 20,
         padding: 8,
-        // Removed border
     },
     historyItem: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 16,
         borderBottomWidth: 1,
-        borderBottomColor: '#EDE4CB', // Soft divider
+        borderBottomColor: '#334155',
     },
     historyIcon: {
         width: 40,
@@ -226,19 +224,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginRight: 16,
-        // Removed border
     },
     historyInfo: {
         flex: 1,
     },
     historyAction: {
-        color: '#222222',
+        color: 'white',
         fontSize: 16,
         fontWeight: '600',
         marginBottom: 2,
     },
     historyDate: {
-        color: '#666666',
+        color: '#94A3B8',
         fontSize: 12,
     },
     historyAmount: {
@@ -251,12 +248,11 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginTop: 12,
-        // Removed border
-        shadowColor: '#FF6D1F', // Orange glow
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 2,
     },
     redeemButtonText: {
         color: 'white',

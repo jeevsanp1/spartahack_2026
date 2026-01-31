@@ -80,7 +80,7 @@ export default function RedeemSuccessScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FAF3E1', // Cream BG
+        backgroundColor: '#0F172A', // Dark Slate
         alignItems: 'center',
         justifyContent: 'center',
         padding: 24,
@@ -126,13 +126,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'InstrumentSerif_400Regular',
-        color: '#222222',
+        color: 'white',
         fontSize: 36,
         marginBottom: 12,
         textAlign: 'center',
     },
     subtitle: {
-        color: '#666666',
+        color: '#94A3B8',
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 40,
@@ -140,27 +140,26 @@ const styles = StyleSheet.create({
         lineHeight: 24,
     },
     detailsCard: {
-        backgroundColor: '#F5E7C6', // Secondary Cream
+        backgroundColor: '#1E293B', // Lighter Slate
         borderRadius: 20,
         padding: 24,
         width: '100%',
         alignItems: 'center',
         marginBottom: 40,
-        // Removed border
-        shadowColor: '#222222',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 12,
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
         elevation: 4,
     },
     detailsTitle: {
-        color: '#222222',
+        color: 'white',
         fontSize: 20,
         fontWeight: '700',
         marginBottom: 8,
     },
     detailsTime: {
-        color: '#666666',
+        color: '#94A3B8',
         fontSize: 14,
         marginBottom: 16,
     },
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
         marginVertical: 16,
         borderStyle: 'dashed',
         borderWidth: 1,
-        borderColor: '#222222',
+        borderColor: '#334155',
         borderRadius: 1,
     },
     verifiedBadge: {
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
     },
     button: {
-        backgroundColor: '#222222', // Dark Button
+        backgroundColor: '#FF6D1F', // Orange Button
         paddingVertical: 16,
         paddingHorizontal: 32,
         borderRadius: 16,
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#FAF3E1', // Cream Text
+        color: 'white',
         fontWeight: '700',
         fontSize: 18,
     },

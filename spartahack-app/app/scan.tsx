@@ -178,21 +178,20 @@ const styles = StyleSheet.create({
     },
     loadingOverlay: {
         position: 'absolute',
-        backgroundColor: '#FAF3E1', // Cream BG
+        backgroundColor: '#1E293B', // Dark Slate
         padding: 24,
         borderRadius: 16,
         alignItems: 'center',
-        shadowColor: '#222222',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.15, // Softer shadow
+        shadowOpacity: 0.3,
         shadowRadius: 10,
         elevation: 10,
-        // Removed border
     },
     loadingText: {
         marginTop: 12,
         fontSize: 16,
         fontWeight: '600',
-        color: '#222222', // Dark Text
+        color: 'white',
     },
 });

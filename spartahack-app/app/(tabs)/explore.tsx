@@ -55,19 +55,19 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAF3E1', // Light Cream
+    backgroundColor: '#0F172A', // Dark Slate
     paddingTop: 60,
   },
   headerTitle: {
     fontSize: 42,
     fontFamily: 'InstrumentSerif_400Regular',
-    color: '#222222', // Dark Gray
+    color: 'white',
     paddingHorizontal: 24,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666666', // Muted Gray
+    color: '#94A3B8', // Slate 400
     paddingHorizontal: 24,
     marginBottom: 24,
   },
@@ -76,45 +76,43 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   rewardCard: {
-    backgroundColor: '#F5E7C6', // Secondary Cream
+    backgroundColor: '#1E293B', // Lighter Slate
     borderRadius: 20,
     padding: 16,
     marginBottom: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    // Removed border
-    shadowColor: '#222222',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
   },
   imagePlaceholder: {
     width: 64,
     height: 64,
     borderRadius: 12,
-    backgroundColor: '#FAF3E1',
+    backgroundColor: '#334155', // Slate 700
     alignItems: 'center',
     justifyContent: 'center',
-    // Removed border
     marginRight: 16,
   },
   cardInfo: {
     flex: 1,
   },
   merchantName: {
-    color: '#666666',
+    color: '#94A3B8',
     fontSize: 12,
     marginBottom: 4,
   },
   rewardTitle: {
-    color: '#222222',
+    color: 'white',
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
   },
   cost: {
-    color: '#FF6D1F', // Bright Orange
+    color: '#FF6D1F', // Orange Accent
     fontWeight: '700',
   },
   redeemButton: {
@@ -122,10 +120,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 12,
-    // Removed border
+    shadowColor: '#FF6D1F',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 2,
   },
   redeemText: {
-    color: 'white', // Text on orange can stay white for contrast
+    color: 'white',
     fontWeight: '600',
     fontSize: 14,
   },
