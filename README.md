@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>🚀 SpartaHack 2026 Mobile App</h1>
+  <h1>STAMPD Rewards</h1>
   
   <p>
     <strong>The official companion app for SpartaHack 2026.</strong><br>
@@ -19,7 +19,7 @@
 
 ## 📱 Overview
 
-The **SpartaHack 2026 App** is designed to connect hackers, merchants, and organizers in a unified platform. Whether you're scanning in for a workshop, redeeming freebies at local merchants, or exploring the venue, this app is your go-to utility.
+The **STAMPD Rewards App** is designed to connect hackers, merchants, and organizers in a unified platform. Whether you're scanning in for a workshop, redeeming freebies at local merchants, or exploring the venue, this app is your go-to utility.
 
 ## ✨ Key Features
 
