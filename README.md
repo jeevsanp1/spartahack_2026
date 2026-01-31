@@ -3,8 +3,8 @@
   <h1>STAMPD Rewards</h1>
   
   <p>
-    <strong>The official companion app for SpartaHack 2026.</strong><br>
-    Built with modern mobile technologies to provide a seamless hackathon experience.
+    <strong>The rewards program built for small businesses.</strong><br>
+    Empowering local merchants and rewarding loyal customers through a seamless digital experience.
   </p>
 
   <p>
@@ -19,15 +19,15 @@
 
 ## 📱 Overview
 
-The **STAMPD Rewards App** is designed to connect hackers, merchants, and organizers in a unified platform. Whether you're scanning in for a workshop, redeeming freebies at local merchants, or exploring the venue, this app is your go-to utility.
+**STAMPD Rewards** is a dedicated platform designed to modernize loyalty for small businesses. We bridge the gap between local merchants and their customers, replacing clunky paper punch cards with a sleek, digital solution. Whether you're grabbing coffee or shopping locally, STAMPD makes every visit count.
 
 ## ✨ Key Features
 
-- **🛍️ Merchant Redemption**: Seamlessly redeem rewards and perks at participating merchant locations.
-- **📷 QR Code Scanning**: Built-in scanner for quick check-ins, networking, and activity logging.
-- **🗺️ Exploration**: Discover venue maps, schedules, and important event locations.
-- **🌗 Adaptive UI**: Beautifully crafted interface with full support for both Dark and Light modes.
-- **⚡ High Performance**: Powered by React Native Reanimated for buttery smooth interactions.
+- **🏆 Digital Loyalty**: Earn tokens and redeem rewards at your favorite local spots with a simple scan.
+- **🛍️ Merchant Discovery**: Find and explore new small businesses in your area.
+- **📷 Instant Check-in**: Seamless QR code scanning for quick transaction verification and reward redemption.
+- **🌗 Adaptive UI**: A modern, premium interface that adapts to your device's Light and Dark modes.
+- **⚡ Fast & Smooth**: Built for speed and reliability, ensuring you never hold up the line.
 
 ## 🛠️ Tech Stack
 
@@ -74,25 +74,25 @@ Follow these steps to set up the project locally on your machine.
 spartahack-app/
 ├── app/                 # Expo Router pages & navigation
 │   ├── (tabs)/          # Main tab navigation
-│   ├── merchant/        # Merchant specific flows
-│   ├── scan.tsx         # QR scanning screen
+│   ├── merchant/        # Merchant detail & reward flows
+│   ├── scan.tsx         # QR scanning functionality
 │   └── _layout.tsx      # Root layout & theme provider
 ├── components/          # Reusable UI components
-├── assets/              # Images, fonts, and static resources
-└── hooks/               # Custom React hooks (e.g., useColorScheme)
+├── assets/              # Branding, icons, and fonts
+└── hooks/               # Custom React hooks
 ```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please follow the standard GitHub flow:
+We welcome contributions to help support small businesses! Please follow the standard GitHub flow:
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/NewFeature`)
+3. Commit your Changes (`git commit -m 'Add NewFeature'`)
+4. Push to the Branch (`git push origin feature/NewFeature`)
 5. Open a Pull Request
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ for <strong>SpartaHack 2026</strong></p>
+  <p>Made with ❤️ for <strong>Local Businesses Everywhere</strong></p>
 </div>
