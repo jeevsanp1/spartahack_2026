@@ -4,9 +4,7 @@ import { Scan, Coffee, Plus, ArrowRight, ShoppingBasket } from 'lucide-react-nat
 import { useState, useEffect } from 'react';
 import { ApiService } from '@/services/api';
 
-import { Merchant } from '@/constants/MockStore';
-
-import { MockStore } from '@/constants/MockStore';
+import { Merchant, MockStore } from '../../constants/MockStore';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;

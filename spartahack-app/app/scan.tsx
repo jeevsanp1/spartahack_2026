@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Al
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import { ApiService } from '@/services/api';
+import { MockStore } from '../constants/MockStore';
 
 export default function App() {
     const [permission, requestPermission] = useCameraPermissions();
@@ -65,7 +66,6 @@ export default function App() {
 
                 // Force local simulation for demo reliability
                 console.log("Simulating Earn locally");
-                const { MockStore } = require('@/constants/MockStore');
                 MockStore.incrementBalance(merchantId, 1);
 
                 /*
