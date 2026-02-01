@@ -9,6 +9,6 @@ import { Platform } from 'react-native';
 
 // Use your machine's LAN IP for physical device testing
 // Run `ifconfig` or `ipconfig` to find it.
-const LAN_IP = "10.8.88.131";
+const HOSTED_IP = "165.232.133.82";
 
-export const API_BASE_URL = `http://${LAN_IP}:3000`;
+export const API_BASE_URL = `http://${HOSTED_IP}:3000`;
