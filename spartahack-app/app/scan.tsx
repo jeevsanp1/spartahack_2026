@@ -63,12 +63,21 @@ export default function App() {
                 // TODO: Replace with real user public key from wallet context
                 const DEMO_USER_KEY = "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM";
 
+                // Force local simulation for demo reliability
+                console.log("Simulating Earn locally");
+                const { MockStore } = require('@/constants/MockStore');
+                MockStore.incrementBalance(merchantId, 1);
+
+                /*
                 try {
                     await ApiService.earnTokens(DEMO_USER_KEY, merchantId, 1);
                 } catch (apiError) {
                     console.log("API Earn failed, falling back to local simulation", apiError);
                     // Fallback success for demo purposes if server is unreachable
+                    const { MockStore } = require('@/constants/MockStore');
+                    MockStore.incrementBalance(merchantId, 1);
                 }
+                */
 
                 Alert.alert(
                     "Reward Claimed! ",
@@ -76,7 +85,6 @@ export default function App() {
                     [{
                         text: "Awesome",
                         onPress: () => {
-                            router.dismissAll();
                             router.replace("/(tabs)");
                         }
                     }]

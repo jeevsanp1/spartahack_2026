@@ -4,30 +4,16 @@ import { Scan, Coffee, Plus, ArrowRight, ShoppingBasket } from 'lucide-react-nat
 import { useState, useEffect } from 'react';
 import { ApiService } from '@/services/api';
 
-// Type definition for Merchant Data
-type Merchant = {
-  id: string;
-  name: string;
-  balance: number;
-  color: string;
-  lastVisit: string;
-  type: 'coffee' | 'grocery';
-};
+import { Merchant } from '@/constants/MockStore';
 
-// Mock Data for User's "Wallet" of Merchant Cards
-const MERCHANTS: Merchant[] = [
-  { id: '1', name: 'Spartan Coffee Co.', balance: 4, color: '#FF853E', lastVisit: 'Today', type: 'coffee' },
-  { id: '2', name: 'Blue Owl Coffee', balance: 8, color: '#0EA5E9', lastVisit: 'Yesterday', type: 'coffee' },
-  { id: '3', name: 'Metropolis Grocers', balance: 3, color: '#10B981', lastVisit: '2 days ago', type: 'grocery' },
-  { id: '4', name: 'Foster Coffee', balance: 1, color: '#D946EF', lastVisit: 'Last Week', type: 'coffee' },
-];
+import { MockStore } from '@/constants/MockStore';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 
 export default function HomeScreen() {
   const router = useRouter();
-  const [merchants, setMerchants] = useState<Merchant[]>(MERCHANTS);
+  const [merchants, setMerchants] = useState<Merchant[]>(MockStore.merchants);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -35,6 +21,14 @@ export default function HomeScreen() {
   }, []);
 
   const fetchData = async () => {
+    // Force use of Mock Store for demo purposes
+    // This bypasses the backend API completely
+    console.log('Using local Mock Store');
+    const mockData = [...MockStore.merchants];
+    setMerchants(mockData);
+
+    /* 
+    // API Call Logic - Disabled for reliable demo
     // TODO: Use real user key from wallet
     const DEMO_USER_KEY = "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM";
     try {
@@ -52,8 +46,10 @@ export default function HomeScreen() {
       }
     } catch (error) {
       console.log('Using mock data due to API error');
-      // Keep mock data if API fails
+      // Sync with local mock store
+      setMerchants([...MockStore.merchants]);
     }
+    */
   };
 
   const renderCard = (merchant: Merchant) => {
