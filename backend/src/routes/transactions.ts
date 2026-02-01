@@ -1,18 +1,19 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { Pool } from 'pg';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { SolanaUtils } from '../utils/solana';
+import { MOCK_MERCHANTS } from '../mockDb';
 
 const router = Router();
 
 // POST /transactions/earn - Mint tokens to user wallet (gasless)
-router.post('/earn', async (req, res) => {
+router.post('/earn', async (req: Request, res: Response) => {
   const pool = req.app.locals.db as Pool;
   const connection = req.app.locals.solana as Connection;
   const solanaUtils = new SolanaUtils(connection);
-  
+
   const { userPublicKey, merchantId, amount = 1, proof } = req.body;
-  
+
   // Validation
   if (!userPublicKey || !merchantId) {
     return res.status(400).json({
@@ -20,11 +21,25 @@ router.post('/earn', async (req, res) => {
       error: 'Missing required fields: userPublicKey, merchantId'
     });
   }
-  
+
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️ Processing mock EARN transaction');
+    const merchant = MOCK_MERCHANTS.find(m => m.id === merchantId);
+    return res.json({
+      success: true,
+      data: {
+        signature: 'mock-signature-' + Date.now(),
+        amount,
+        merchantName: merchant?.name || 'Mock Merchant',
+        createdATA: false
+      }
+    });
+  }
+
   try {
     // Validate user public key
     const userPubkey = new PublicKey(userPublicKey);
-    
+
     // Get merchant info
     const merchantResult = await pool.query(`
       SELECT 
@@ -35,20 +50,20 @@ router.post('/earn', async (req, res) => {
       FROM merchants 
       WHERE id = $1
     `, [merchantId]);
-    
+
     if (merchantResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: 'Merchant not found'
       });
     }
-    
+
     const merchant = merchantResult.rows[0];
     const mintAddress = new PublicKey(merchant.token_mint_address);
-    
+
     // Decrypt mint authority
     const mintAuthority = solanaUtils.decryptMintAuthority(merchant.encrypted_mint_authority_key);
-    
+
     // Create and send transaction
     const { transaction, needsATA } = await solanaUtils.createMintTransaction(
       userPubkey,
@@ -56,13 +71,13 @@ router.post('/earn', async (req, res) => {
       amount,
       mintAuthority
     );
-    
+
     // Send transaction
     const signature = await connection.sendRawTransaction(transaction.serialize());
-    
+
     // Confirm transaction
     await connection.confirmTransaction(signature);
-    
+
     // Record transaction in database
     await pool.query(`
       INSERT INTO transactions (
@@ -73,7 +88,7 @@ router.post('/earn', async (req, res) => {
         tx_signature
       ) VALUES ($1, $2, $3, $4, $5)
     `, [userPublicKey, merchantId, 'earn', amount, signature]);
-    
+
     res.json({
       success: true,
       data: {
@@ -83,10 +98,10 @@ router.post('/earn', async (req, res) => {
         createdATA: needsATA
       }
     });
-    
+
   } catch (error) {
     console.error('Error processing earn transaction:', error);
-    
+
     let errorMessage = 'Failed to process earn transaction';
     if (error instanceof Error) {
       if (error.message.includes('insufficient funds') || error.message.includes('Attempt to debit an account but found no record of a prior credit')) {
@@ -97,7 +112,7 @@ router.post('/earn', async (req, res) => {
         errorMessage = `Transaction failed: ${error.message}`;
       }
     }
-    
+
     res.status(500).json({
       success: false,
       error: errorMessage,
@@ -107,13 +122,13 @@ router.post('/earn', async (req, res) => {
 });
 
 // POST /transactions/redeem - Create redemption transaction for user to sign
-router.post('/redeem', async (req, res) => {
+router.post('/redeem', async (req: Request, res: Response) => {
   const pool = req.app.locals.db as Pool;
   const connection = req.app.locals.solana as Connection;
   const solanaUtils = new SolanaUtils(connection);
-  
+
   const { userPublicKey, merchantId, amount, burnTokens = true } = req.body;
-  
+
   // Validation
   if (!userPublicKey || !merchantId || !amount) {
     return res.status(400).json({
@@ -121,11 +136,26 @@ router.post('/redeem', async (req, res) => {
       error: 'Missing required fields: userPublicKey, merchantId, amount'
     });
   }
-  
+
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️ Creating mock REDEEM transaction');
+    // Return a dummy base64 string that won't work on chain but satisfies the UI
+    const merchant = MOCK_MERCHANTS.find(m => m.id === merchantId);
+    return res.json({
+      success: true,
+      data: {
+        transaction: Buffer.from("mock-transaction-data").toString('base64'),
+        amount,
+        merchantName: merchant?.name || 'Mock Merchant',
+        burnTokens
+      }
+    });
+  }
+
   try {
     // Validate user public key
     const userPubkey = new PublicKey(userPublicKey);
-    
+
     // Get merchant info
     const merchantResult = await pool.query(`
       SELECT 
@@ -136,18 +166,18 @@ router.post('/redeem', async (req, res) => {
       FROM merchants 
       WHERE id = $1
     `, [merchantId]);
-    
+
     if (merchantResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: 'Merchant not found'
       });
     }
-    
+
     const merchant = merchantResult.rows[0];
     const mintAddress = new PublicKey(merchant.token_mint_address);
     const merchantWallet = new PublicKey(merchant.wallet_address);
-    
+
     // Check user has enough tokens
     const currentBalance = await solanaUtils.getTokenBalance(userPubkey, mintAddress);
     if (currentBalance < amount) {
@@ -156,7 +186,7 @@ router.post('/redeem', async (req, res) => {
         error: `Insufficient balance. Have ${currentBalance}, need ${amount}`
       });
     }
-    
+
     // Create redemption transaction
     const transaction = await solanaUtils.createRedemptionTransaction(
       userPubkey,
@@ -165,13 +195,13 @@ router.post('/redeem', async (req, res) => {
       amount,
       burnTokens
     );
-    
+
     // Serialize transaction for frontend
     const serializedTx = transaction.serialize({
       requireAllSignatures: false,
       verifySignatures: false
     });
-    
+
     res.json({
       success: true,
       data: {
@@ -181,7 +211,7 @@ router.post('/redeem', async (req, res) => {
         burnTokens
       }
     });
-    
+
   } catch (error) {
     console.error('Error creating redeem transaction:', error);
     res.status(500).json({

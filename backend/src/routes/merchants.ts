@@ -1,12 +1,22 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { Pool } from 'pg';
+import { MOCK_MERCHANTS } from '../mockDb';
 
 const router = Router();
 
 // GET /merchants - List all merchants with metadata
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   const pool = req.app.locals.db as Pool;
-  
+
+
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️ Using mock merchants data (No DB configured)');
+    return res.json({
+      success: true,
+      data: MOCK_MERCHANTS
+    });
+  }
+
   try {
     const result = await pool.query(`
       SELECT 
@@ -19,7 +29,7 @@ router.get('/', async (req, res) => {
       FROM merchants 
       ORDER BY created_at DESC
     `);
-    
+
     res.json({
       success: true,
       data: result.rows
@@ -34,10 +44,18 @@ router.get('/', async (req, res) => {
 });
 
 // GET /merchants/:id - Get specific merchant details
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const pool = req.app.locals.db as Pool;
   const { id } = req.params;
-  
+
+  if (!process.env.DATABASE_URL) {
+    const merchant = MOCK_MERCHANTS.find(m => m.id === id);
+    if (!merchant) {
+      return res.status(404).json({ success: false, error: 'Merchant not found' });
+    }
+    return res.json({ success: true, data: merchant });
+  }
+
   try {
     const result = await pool.query(`
       SELECT 
@@ -52,14 +70,14 @@ router.get('/:id', async (req, res) => {
       FROM merchants 
       WHERE id = $1
     `, [id]);
-    
+
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: 'Merchant not found'
       });
     }
-    
+
     res.json({
       success: true,
       data: result.rows[0]

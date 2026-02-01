@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Scan, Coffee, Plus, ArrowRight, ShoppingBasket } from 'lucide-react-native';
+import { useState, useEffect } from 'react';
+import { ApiService } from '@/services/api';
 
 // Type definition for Merchant Data
 type Merchant = {
@@ -25,9 +27,37 @@ const CARD_WIDTH = width * 0.8;
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [merchants, setMerchants] = useState<Merchant[]>(MERCHANTS);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    // TODO: Use real user key from wallet
+    const DEMO_USER_KEY = "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM";
+    try {
+      const balances = await ApiService.getUserBalances(DEMO_USER_KEY);
+      if (balances.length > 0) {
+        const mappedMerchants: Merchant[] = balances.map(b => ({
+          id: b.merchantId,
+          name: b.merchantName,
+          balance: b.balance,
+          color: b.color || '#64748B',
+          type: (b.type as 'coffee' | 'grocery') || 'coffee',
+          lastVisit: 'Recently', // Backend doesn't support this yet
+        }));
+        setMerchants(mappedMerchants);
+      }
+    } catch (error) {
+      console.log('Using mock data due to API error');
+      // Keep mock data if API fails
+    }
+  };
 
   const renderCard = (merchant: Merchant) => {
-    const isClickable = merchant.id === '1'; // Currently only Spartan is clickable as requested
+    const isClickable = true; // Make all cards clickable if they come from API potentially
 
     const CardContent = (
       <View key={merchant.id} style={[styles.card, { backgroundColor: merchant.color }]}>
@@ -51,7 +81,7 @@ export default function HomeScreen() {
 
         <View style={styles.cardFooter}>
           <View style={styles.progressBarBg}>
-            <View style={[styles.progressBarFill, { width: `${(merchant.balance / 10) * 100}%` }]} />
+            <View style={[styles.progressBarFill, { width: `${Math.min((merchant.balance / 10) * 100, 100)}%` }]} />
           </View>
           <Text style={styles.progressText}>
             {merchant.balance}/10 for Free {merchant.type === 'grocery' ? 'Produce' : 'Coffee'}
@@ -61,8 +91,22 @@ export default function HomeScreen() {
     );
 
     if (isClickable) {
+      // Use push with params, handling the ID correctly
       return (
-        <TouchableOpacity key={merchant.id} onPress={() => router.push(`/merchant/${merchant.id}`)} activeOpacity={0.9}>
+        <TouchableOpacity
+          key={merchant.id}
+          onPress={() => router.push({
+            pathname: "/merchant/[id]",
+            params: {
+              id: merchant.id,
+              name: merchant.name,
+              balance: merchant.balance,
+              color: merchant.color,
+              type: merchant.type
+            }
+          })}
+          activeOpacity={0.9}
+        >
           {CardContent}
         </TouchableOpacity>
       );
@@ -76,7 +120,8 @@ export default function HomeScreen() {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.appTitle}>STAMPD</Text>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={fetchData}>
+          {/* Use Plus button to refresh for now since it's a prototype */}
           <Plus color="white" size={24} />
         </TouchableOpacity>
       </View>
@@ -107,7 +152,7 @@ export default function HomeScreen() {
           snapToInterval={CARD_WIDTH + 16}
           decelerationRate="fast"
         >
-          {MERCHANTS.map(renderCard)}
+          {merchants.map(renderCard)}
           <TouchableOpacity style={[styles.card, styles.addCard]}>
             <Plus color="#475569" size={40} />
             <Text style={styles.addCardText}>Find Store</Text>
@@ -120,7 +165,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.activityList}>
-          {/* Simple list of recent actions */}
+          {/* Simple list of recent actions - static for now */}
           {[1, 2, 3].map((_, i) => (
             <View key={i} style={styles.activityItem}>
               <View style={styles.activityIcon}>

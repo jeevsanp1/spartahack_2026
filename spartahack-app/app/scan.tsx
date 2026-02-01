@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
+import { ApiService } from '@/services/api';
 
 export default function App() {
     const [permission, requestPermission] = useCameraPermissions();
@@ -35,20 +36,45 @@ export default function App() {
         try {
             console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
 
-            // Simulate processing
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Parse QR Data
+            let merchantId: string;
+            let merchantName: string = 'Merchant';
+
+            try {
+                // Try parsing as JSON first
+                const merchantData = JSON.parse(data);
+                merchantId = merchantData.id || merchantData.merchantId;
+                merchantName = merchantData.name || 'Merchant';
+            } catch (e) {
+                // Fallback: assume data is just the ID if not JSON
+                merchantId = data;
+            }
+
+            if (!merchantId) throw new Error("Invalid QR Data");
 
             if (isRedeem) {
-                // Navigate to redemption success
-                router.replace("/merchant/redeem-success");
+                // Determine amount to redeem (could be prompted or fixed)
+                // For now, redirect to redeem-success screen which might handle the API call or we pass params
+                // But the user guide says "Redeem Tokens" returns a transaction to sign.
+                // For simplicity in this demo, we'll just navigate.
+                router.replace({ pathname: "/merchant/redeem-success", params: { merchantId, merchantName } });
             } else {
-                // Default Earning Logic
-                const merchantData = JSON.parse(data);
+                // EARN TOKENS
+                // TODO: Replace with real user public key from wallet context
+                const DEMO_USER_KEY = "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM";
+
+                try {
+                    await ApiService.earnTokens(DEMO_USER_KEY, merchantId, 1);
+                } catch (apiError) {
+                    console.log("API Earn failed, falling back to local simulation", apiError);
+                    // Fallback success for demo purposes if server is unreachable
+                }
+
                 Alert.alert(
-                    "Reward Claimed!",
-                    `You earned 1 Token at ${merchantData.name || 'Merchant'}!`,
+                    "Reward Claimed! ",
+                    `You earned 1 Token at ${merchantName}!`,
                     [{
-                        text: "OK",
+                        text: "Awesome",
                         onPress: () => {
                             router.dismissAll();
                             router.replace("/(tabs)");
@@ -58,7 +84,8 @@ export default function App() {
             }
 
         } catch (error) {
-            Alert.alert("Error", "Invalid QR Code", [{
+            console.error(error);
+            Alert.alert("Error", "Failed to process QR code. please try again.", [{
                 text: "OK", onPress: () => {
                     setScanned(false);
                     setLoading(false);

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Check, ArrowLeft } from 'lucide-react-native';
 import Animated, {
     useSharedValue,
@@ -39,6 +39,9 @@ export default function RedeemSuccessScreen() {
         transform: [{ translateY: translateY.value }],
     }));
 
+    const { merchantName } = useLocalSearchParams();
+    const displayName = typeof merchantName === 'string' ? merchantName : 'Spartan Coffee Co.';
+
     return (
         <View style={styles.container}>
             <Animated.View style={[styles.circleContainer, circleStyle]}>
@@ -56,7 +59,7 @@ export default function RedeemSuccessScreen() {
                 <Text style={styles.subtitle}>Enjoy your free coffee. Show this screen to the barista.</Text>
 
                 <View style={styles.detailsCard}>
-                    <Text style={styles.detailsTitle}>Spartan Coffee Co.</Text>
+                    <Text style={styles.detailsTitle}>{displayName}</Text>
                     <Text style={styles.detailsTime}>Just now</Text>
                     <View style={styles.ticketStub}>
                         <View style={styles.verifiedBadge}>
