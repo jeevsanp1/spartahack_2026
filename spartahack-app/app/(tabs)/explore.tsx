@@ -6,7 +6,7 @@ const REWARDS_CATALOG = [
   { id: '1', merchant: 'Spartan Coffee Co.', item: 'Free Latte', cost: 10, image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=100' },
   { id: '2', merchant: 'Blue Owl Coffee', item: 'Free Pastry', cost: 5, image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=100' },
   { id: '3', merchant: 'Foster Coffee', item: 'Bag of Beans', cost: 50, image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=100' },
-  { id: '4', merchant: 'Spartan Coffee Co.', item: 'Espresso Shot', cost: 5, image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=100' },
+  { id: '4', merchant: 'Strange Matter Coffee', item: 'Cold Brew', cost: 6, image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=100' },
 ];
 
 export default function ExploreScreen() {

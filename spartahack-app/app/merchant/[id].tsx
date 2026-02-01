@@ -10,15 +10,19 @@ const MOCK_HISTORY = [
 ];
 
 export default function MerchantDetailScreen() {
-    const { id } = useLocalSearchParams();
+    const params = useLocalSearchParams();
     const router = useRouter();
+    const id = typeof params.id === 'string' ? params.id : '';
+    const name = typeof params.name === 'string' ? params.name : 'Spartan Coffee Co.';
+    const balance = params.balance ? Number(params.balance) : 4;
+    const color = typeof params.color === 'string' ? params.color : '#FF853E';
 
     // In a real app, fetch merchant data by ID. 
-    // For this demo, we hardcode Spartan Coffee Co. style if ID matches, or generic.
+    // For this demo, we use params passed from home, or fallback to Spartan defaults.
     const isSpartan = id === '1';
-    const themeColor = '#FF853E';
-    const merchantName = "Spartan Coffee Co.";
-    const currentBalance = 4;
+    const themeColor = color;
+    const merchantName = name;
+    const currentBalance = balance;
     const targetbalance = 10;
 
     return (
@@ -48,12 +52,12 @@ export default function MerchantDetailScreen() {
                     <View style={styles.progressHeader}>
                         <Text style={styles.progressLabel}>Your Progress</Text>
                         <Text style={[styles.progressCount, { color: themeColor }]}>
-                            10 <Text style={styles.totalTokens}>/ {targetbalance}</Text>
+                            {currentBalance} <Text style={styles.totalTokens}>/ {targetbalance}</Text>
                         </Text>
                     </View>
 
                     <View style={styles.progressBarBg}>
-                        <View style={[styles.progressBarFill, { width: '100%', backgroundColor: themeColor }]} />
+                        <View style={[styles.progressBarFill, { width: `${Math.min((currentBalance / targetbalance) * 100, 100)}%`, backgroundColor: themeColor }]} />
                     </View>
 
                     <TouchableOpacity
