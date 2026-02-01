@@ -60,9 +60,8 @@ run_test "Health Check" "GET" "/health" "" "200"
 # Test 2: List all merchants
 run_test "List All Merchants" "GET" "/merchants" "" "200"
 
-# Save merchant data for later use
-MERCHANTS_RESPONSE=$(curl -s "$BASE_URL/merchants")
-FIRST_MERCHANT_ID=$(echo "$MERCHANTS_RESPONSE" | jq -r '.data[0].id' 2>/dev/null)
+# Use specific merchant ID for testing
+FIRST_MERCHANT_ID="f9beaa61-9e5e-475f-beeb-668a801d8e10"
 
 # Test 3: Get specific merchant (if one exists)
 if [ "$FIRST_MERCHANT_ID" != "null" ] && [ ! -z "$FIRST_MERCHANT_ID" ]; then
